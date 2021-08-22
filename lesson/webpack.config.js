@@ -25,6 +25,12 @@ module.exports = {
 					outputPath: "pic",
 				}
 			},
+			{test: /\.mp3$/i,
+				loader:"file-loader",
+				options:{
+					outputPath: "sound",
+				}
+			},
 			{test: /\.css$/i,
 				use:[MiniCssExtractPlugin.loader, "css-loader"]
 			},
