@@ -1,13 +1,18 @@
-import {DateTime} from "./luxon.js";
 import {writeDiffOutput} from "./output.js";
 import calcDiff from "./calcDiff.js";
-/*import {sound} from "./playSound.js";*/
+import {add} from "date-fns";
+import soundPlay from "./playSound.js";
 
 
 export default function timer(timerUser) {
-	const timerArray = timerUser.split(":");
-	let dateNow = DateTime.local();
-	const dateOff = dateNow.plus({hours: timerArray[0],  minutes:timerArray[1], seconds:  timerArray[2]});
+	let dateNow = new Date().toString();
+
+	const timeParsing = timerUser.split(":");
+	const timeUser = add(new Date(), {
+		hours: timeParsing[0],
+		minutes: timeParsing[1],
+		seconds: timeParsing[2],
+	}).toString();
 
 	const outputParagraph = document.getElementById("outputParagraph");
 	const buttonStart = document.getElementById("buttonStart");
@@ -17,9 +22,9 @@ export default function timer(timerUser) {
 	buttonStop.onclick = () => timerStops(false);
 
 	const startInterval = setInterval(() => {
-		dateNow = DateTime.local();
-		const objTimer = calcDiff(dateOff, dateNow, true);
-		writeDiffOutput(objTimer);
+		dateNow = new Date().toString();
+		const objTimer = calcDiff(timeUser, dateNow);
+		writeDiffOutput(objTimer, true);
 		checkTimerEnd(objTimer);
 	}, 1000);
 
@@ -27,27 +32,21 @@ export default function timer(timerUser) {
 
 	function checkTimerEnd(obj){
 		if (!obj.hours && !obj.minutes && obj.seconds <= 0){
-			console.log("end");
-			/*sound.play()*/
+			soundPlay();
 			timerStops(true);
 		}
 	}
 
 	function timerStops(isTimerEnd) {
-
 		clearInterval(startInterval);
 		buttonStart.hidden = false;
 		buttonStop.hidden = true;
 
 		if(isTimerEnd){
 			outputParagraph.innerText = "Время вышло";
-
 		}else {
 			outputParagraph.innerText = "Таймер остановлен";
 		}
-
-
-
 	}
 }
 

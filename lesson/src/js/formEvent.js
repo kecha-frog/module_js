@@ -10,23 +10,19 @@ export default function formEvent () {
 
 		const formData = new FormData(event.target);
 
-		console.log( event.target);
 		if (!formData.get("timer")){
 			const dateFrom = formData.get("dateFrom");
-
 
 			const dateTo= formData.get("dateTo");
 
 			if(!dateTo || !dateFrom){
 				writeOutput("Установите значение!");
 			}else {
-				writeDiffOutput(calcDiff(dateFrom, dateTo, false));
+				writeDiffOutput(calcDiff(dateFrom, dateTo), false);
 			}
 		}else {
 			const timerUser = formData.get("timer");
 			timer(timerUser, true);
 		}
-
-
 	};
 }
