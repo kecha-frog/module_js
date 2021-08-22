@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \\\\\\\"Error: no ../learn/test specified\\\\\\\" && exit 1",
-    "start": "webpack serve --mode=development",
-    "start_build": "webpack serve --mode=production",
+    "start": "webpack serve --mode=development --history-api-fallback --progress",
     "dev": "webpack --mode=development",
     "build": "webpack --mode=production"
   },
@@ -24,6 +23,7 @@
     "@babel/core": "^7.15.0",
     "@babel/preset-env": "^7.15.0",
     "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "^4.0.0-alpha.0",
     "css-loader": "^6.2.0",
     "eslint": "^7.32.0",
     "file-loader": "^6.2.0",
@@ -32,6 +32,7 @@
     "sass": "^1.38.0",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.2.1",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "webpack": "^5.51.1",
     "webpack-bundle-analyzer": "^4.4.2",
     "webpack-cli": "^4.8.0",

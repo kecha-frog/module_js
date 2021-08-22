@@ -1,4 +1,4 @@
-import {writeDiffOutput} from "./output.js";
+import {createOutput} from "./output.js";
 import calcDiff from "./calcDiff.js";
 import {add} from "date-fns";
 import soundPlay from "./playSound.js";
@@ -24,11 +24,9 @@ export default function timer(timerUser) {
 	const startInterval = setInterval(() => {
 		dateNow = new Date().toString();
 		const objTimer = calcDiff(timeUser, dateNow);
-		writeDiffOutput(objTimer, true);
+		createOutput(objTimer, true);
 		checkTimerEnd(objTimer);
 	}, 1000);
-
-
 
 	function checkTimerEnd(obj){
 		if (!obj.hours && !obj.minutes && obj.seconds <= 0){

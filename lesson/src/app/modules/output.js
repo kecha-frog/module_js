@@ -4,7 +4,7 @@ export function writeOutput(outputValue) {
 	paragraph.innerText = outputValue;
 }
 
-export function writeDiffOutput(obj, isTimer) {
+export function createOutput(obj, isTimer) {
 	if(!isTimer){
 		writeOutput(
 			`Лет: ${obj.years} Месяцев: ${obj.months} Дней: ${obj.days}`

@@ -1,5 +1,5 @@
 import {Howl} from "howler";
-import soundSrc from "../sound/sound.mp3";
+import soundSrc from "../../static/sound/sound.mp3";
 
 const sound = new Howl({
 	src: [soundSrc]

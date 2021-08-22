@@ -1,4 +1,4 @@
-import {writeDiffOutput, writeOutput} from "./output.js";
+import {createOutput, writeOutput} from "./output.js";
 import calcDiff from "./calcDiff.js";
 import timer from "./timer.js";
 
@@ -18,7 +18,7 @@ export default function formEvent () {
 			if(!dateTo || !dateFrom){
 				writeOutput("Установите значение!");
 			}else {
-				writeDiffOutput(calcDiff(dateFrom, dateTo), false);
+				createOutput(calcDiff(dateFrom, dateTo), false);
 			}
 		}else {
 			const timerUser = formData.get("timer");
