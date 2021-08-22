@@ -1,0 +1,65 @@
+const {resolve} = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const {BundleAnalyzerPlugin} = require("webpack-bundle-analyzer");
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+
+module.exports = {
+	mode: "production",
+	entry:resolve(__dirname, "./src/app/main.js"),
+	output: {
+		filename:"bundle.[contenthash].js",
+		path: resolve(__dirname,"dist"),
+	},
+	module:{
+		rules:[
+			{
+				test: /\.m?js$/,
+				exclude: /node_modules/,
+				use: {
+					loader: "babel-loader"
+				}
+			},
+			{test: /\.(png|jpe?g|gif)$/i,
+				loader:"file-loader",
+				exclude: /node_modules/,
+				options:{
+					outputPath: "pic",
+				}
+			},
+			{test: /\.mp3$/i, //для музыки
+				loader:"file-loader",
+				exclude: /node_modules/,
+				options:{
+					outputPath: "sound",
+				}
+			},
+			{test: /\.css$/i,
+				exclude: /node_modules/,
+				use:[MiniCssExtractPlugin.loader, "css-loader"]
+			},
+			{test: /\.s[ac]ss$/i,
+				exclude: /node_modules/,
+				use:[MiniCssExtractPlugin.loader, "css-loader", "sass-loader"]
+			},
+		]
+	},
+	plugins:[
+		new HtmlWebpackPlugin({template: resolve(__dirname, "./public/index.html")}),
+		new MiniCssExtractPlugin({filename: "[name].[contenthash].css"}),
+		new BundleAnalyzerPlugin({}),
+		new CleanWebpackPlugin //очищает dist
+	]
+	,
+	devServer: {
+		port: 9000,
+		hot: true, //горячая перезагрузка браузера
+	},
+	optimization: {
+		minimizer: [new UglifyJsPlugin({ // минимизирует код
+			test: /\.js(\?.*)?$/i,
+		}),],
+	},
+}
+;

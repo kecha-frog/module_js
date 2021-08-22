@@ -26,5 +26,4 @@ export default function creatTimer(){
 	labelTimer.append(chooseTimer);
 	dateDiffForm.append(buttonStart);
 	dateDiffForm.append(buttonStop);
-
 }
